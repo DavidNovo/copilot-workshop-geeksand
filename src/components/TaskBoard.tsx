@@ -51,22 +51,42 @@ export function TaskBoard() {
     e.dataTransfer.setData('cardId', cardId);
   };
 
-  const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
-    e.preventDefault();
+  const moveCardToColumn = (cardId: string, targetColumnId: 'todo' | 'in-progress' | 'complete') => {
+    // Validate card ID
+    const cardToMove = cards.find((card) => card.id === cardId);
+    if (!cardToMove) {
+      addToast('Error: Card not found', 'error');
+      return;
+    }
 
-    if (!draggedCardId) return;
+    // Check if dropped on same column - no-op
+    if (cardToMove.columnId === targetColumnId) {
+      addToast('Card already in this column', 'info');
+      return;
+    }
 
-    // Find the card and update its column
+    // Move the card to the target column
     setCards((prev) =>
       prev.map((card) =>
-        card.id === draggedCardId
-          ? { ...card, columnId }
+        card.id === cardId
+          ? { ...card, columnId: targetColumnId }
           : card
       )
     );
 
-    setDraggedCardId(null);
     addToast('Card moved', 'success');
+  };
+
+  const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
+    e.preventDefault();
+
+    if (!draggedCardId) {
+      addToast('Error: No card selected', 'error');
+      return;
+    }
+
+    moveCardToColumn(draggedCardId, columnId);
+    setDraggedCardId(null);
   };
 
   const todoCards = cards.filter((card) => card.columnId === 'todo');
