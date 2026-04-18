@@ -6,16 +6,10 @@ import { Column } from './Column';
 import { ToastContainer } from './Toast';
 
 export function TaskBoard() {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<Card[]>(() => loadCards());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [draggedCardId, setDraggedCardId] = useState<string | null>(null);
-
-  // Load cards from localStorage on mount
-  useEffect(() => {
-    const loadedCards = loadCards();
-    setCards(loadedCards);
-  }, []);
 
   // Save cards to localStorage whenever they change
   useEffect(() => {
