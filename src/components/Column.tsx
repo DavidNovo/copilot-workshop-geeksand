@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Card } from '../types';
 import { CardComponent } from './Card';
 
@@ -6,18 +6,40 @@ interface ColumnProps {
   title: string;
   columnId: 'todo' | 'in-progress' | 'complete';
   cards: Card[];
+  draggedCardId: string | null;
   onDelete: (cardId: string) => void;
   onDragStart: (e: React.DragEvent, cardId: string) => void;
-  onDragOver: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => void;
 }
 
-export function Column({ title, columnId, cards, onDelete, onDragStart, onDragOver, onDrop }: ColumnProps) {
+export function Column({ title, columnId, cards, draggedCardId, onDelete, onDragStart, onDragOver, onDrop }: ColumnProps) {
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setIsDragOver(true);
+    onDragOver(e);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    // Only remove highlight if leaving the column entirely
+    if (e.currentTarget === e.target) {
+      setIsDragOver(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    setIsDragOver(false);
+    onDrop(e, columnId);
+  };
+
   return (
     <div
-      onDragOver={onDragOver}
-      onDrop={(e) => onDrop(e, columnId)}
-      className="flex-1 min-h-96 bg-gray-100 rounded-lg p-4 border-2 border-gray-300 hover:border-gray-400 transition"
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className={`flex-1 min-h-96 bg-gray-100 rounded-lg p-4 border-2 transition ${ isDragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}
     >
       <h2 className="text-lg font-bold text-gray-800 mb-4">{title}</h2>
 
@@ -32,6 +54,7 @@ export function Column({ title, columnId, cards, onDelete, onDragStart, onDragOv
             <CardComponent
               key={card.id}
               card={card}
+              isDragging={draggedCardId === card.id}
               onDelete={onDelete}
               onDragStart={(e) => onDragStart(e, card.id)}
             />

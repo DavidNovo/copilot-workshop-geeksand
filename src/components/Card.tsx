@@ -3,11 +3,12 @@ import type { Card } from '../types';
 
 interface CardComponentProps {
   card: Card;
+  isDragging: boolean;
   onDelete: (cardId: string) => void;
   onDragStart: (e: React.DragEvent) => void;
 }
 
-export function CardComponent({ card, onDelete, onDragStart }: CardComponentProps) {
+export function CardComponent({ card, isDragging, onDelete, onDragStart }: CardComponentProps) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleDeleteClick = () => {
@@ -24,7 +25,9 @@ export function CardComponent({ card, onDelete, onDragStart }: CardComponentProp
       <div
         draggable
         onDragStart={onDragStart}
-        className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg cursor-move transition-shadow border-l-4 border-blue-500"
+        className={`bg-white p-4 rounded-lg shadow-md hover:shadow-lg cursor-grab active:cursor-grabbing transition-all border-l-4 border-blue-500 ${
+          isDragging ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
+        }`}
       >
         <div className="flex justify-between items-start">
           <div className="flex-1">

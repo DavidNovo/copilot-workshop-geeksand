@@ -48,11 +48,7 @@ export function TaskBoard() {
   const handleDragStart = (e: React.DragEvent, cardId: string) => {
     setDraggedCardId(cardId);
     e.dataTransfer.effectAllowed = 'move';
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
+    e.dataTransfer.setData('cardId', cardId);
   };
 
   const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
@@ -100,27 +96,27 @@ export function TaskBoard() {
             title="Todo"
             columnId="todo"
             cards={todoCards}
+            draggedCardId={draggedCardId}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
             onDrop={handleDrop}
           />
           <Column
             title="In Progress"
             columnId="in-progress"
             cards={inProgressCards}
+            draggedCardId={draggedCardId}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
             onDrop={handleDrop}
           />
           <Column
             title="Complete"
             columnId="complete"
             cards={completeCards}
+            draggedCardId={draggedCardId}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
             onDrop={handleDrop}
           />
         </div>
