@@ -1,6 +1,7 @@
 # Create a PRD (Project Requirements Document)
 
 Prompt (same for VS Code and CLI):
+
 ```
 /plan I want to create a simple kanban app. Help me make a complete PRD for it. Ask me any clarifying questions as necessary using #askQuestions. Here are the requirements:
 

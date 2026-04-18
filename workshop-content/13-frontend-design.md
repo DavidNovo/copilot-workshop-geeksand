@@ -1,4 +1,4 @@
-# Agent Skills
+# Frontend Design Skills
 
 ## Frontend design skill
 
@@ -9,6 +9,7 @@ Ask it a question related to frontend
 ## Coding skills
 
 Prompt:
+
 ```
-/create-skill 
+/create-skill
 ```

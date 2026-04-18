@@ -1,6 +1,7 @@
 # Custom Agents
 
 VS Code Prompt:
+
 ```
 /create-agent Create the following agents:
 
@@ -13,6 +14,7 @@ The process continues until the whole plan is completed
 ```
 
 CLI Prompt:
+
 CLI has /agent instead of /create-agent:
 
 /agent > Create new agent > Project > Create with Copilot

@@ -1,6 +1,7 @@
 # Create a Spec Prompt
 
 **VS Code:**
+
 ```
 /create-prompt the task from this convo
 ```
