@@ -1,11 +1,13 @@
 # Drag-and-Drop Feature Specification
 
 ## User Story
+
 As a task board user, I want to drag and drop cards between columns and reorder them within the same column so that I can organize my tasks more efficiently with intuitive interactions.
 
 ---
 
 ## Technical Requirements
+
 - Implement using native HTML5 Drag and Drop API
 - Support dragging cards between different columns
 - Support reordering cards within the same column
@@ -16,6 +18,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 ---
 
 ## Acceptance Criteria
+
 - [ ] User can drag a card from one column to another
 - [ ] User can reorder cards within the same column by dragging
 - [ ] Visual feedback (opacity/ghost effect) appears during dragging
@@ -28,6 +31,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 ---
 
 ## Definition of Done
+
 - [ ] All acceptance criteria are met
 - [ ] Code follows project conventions and is reviewed
 - [ ] All drag-and-drop functions have clear error handling
@@ -303,4 +307,3 @@ In TaskBoard component:
 - ✅ All acceptance criteria met
 - ✅ Code is well-tested and documented
 - ✅ User feedback incorporated
-
