@@ -9,6 +9,7 @@
 **Target Users:** Anyone needing basic task/project management
 
 **Tech Stack:**
+
 - Frontend: React + Vite + TypeScript
 - Storage: Browser localStorage
 - No backend required
@@ -53,6 +54,7 @@
 ## 3. Data Model
 
 ### Card Object
+
 ```json
 {
   "id": "uuid-string",
@@ -80,12 +82,14 @@
 ## 4. User Workflows
 
 ### Workflow 1: First-Time Load
+
 1. User opens app
 2. App checks localStorage for existing cards
 3. If empty, show 3 empty columns with placeholders
 4. If cards exist, populate columns accordingly
 
 ### Workflow 2: Add a Card
+
 1. User clicks "+ Add Card" button
 2. Modal form opens
 3. User enters title (required) and body (required)
@@ -102,6 +106,7 @@
    - Modal stays open
 
 ### Workflow 3: Move a Card
+
 1. User clicks and drags a card
 2. Visual feedback shows the card is being dragged
 3. User drags over another column
@@ -112,6 +117,7 @@
 8. Subtle animation confirms the move
 
 ### Workflow 4: Delete a Card
+
 1. User clicks delete button on a card
 2. Card is removed from the board
 3. Card removed from localStorage
@@ -119,6 +125,7 @@
 5. Column reformats if now empty
 
 ### Workflow 5: Persistence
+
 1. User adds/moves/deletes cards
 2. Each action auto-saves to localStorage
 3. User refreshes page
@@ -131,12 +138,14 @@
 ### Input Validation
 
 **Title:**
+
 - Required (cannot be empty or whitespace-only)
 - Max length: 100 characters
 - Trimmed on save
 - Error message: "Title is required and must be under 100 characters"
 
 **Body:**
+
 - Required (cannot be empty or whitespace-only)
 - Max length: 500 characters
 - Trimmed on save
