@@ -12,14 +12,13 @@ interface ColumnProps {
   onDrop: (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => void;
 }
 
-export function Column({ title, columnId, cards, draggedCardId, onDelete, onDragStart, onDragOver, onDrop }: ColumnProps) {
+export function Column({ title, columnId, cards, draggedCardId, onDelete, onDragStart, onDrop }: ColumnProps) {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     setIsDragOver(true);
-    onDragOver(e);
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
