@@ -5,6 +5,7 @@
 The **Task Board** is a client-side Kanban board application built with React, Vite, and TypeScript. It provides a simple interface for managing tasks across three workflow stages (Todo, In Progress, Complete) with full localStorage persistence and a smooth drag-and-drop experience.
 
 **Tech Stack:**
+
 - **Frontend Framework**: React 19 + TypeScript
 - **Build Tool**: Vite 8
 - **Styling**: Tailwind CSS 4
@@ -59,12 +60,14 @@ App
 ### State Management
 
 **TaskBoard Component State:**
+
 - `cards: Card[]` - All cards in the board
 - `isModalOpen: boolean` - Controls AddCardModal visibility
 - `toasts: Toast[]` - Active toast notifications
 - `draggedCardId: string | null` - Tracks currently dragged card
 
 **Card Object Structure:**
+
 ```typescript
 interface Card {
   id: string;                           // UUID generated on creation
@@ -80,6 +83,7 @@ interface Card {
 ## Core Features & How They Work
 
 ### 1. **Displaying the Board**
+
 - **File**: `src/components/TaskBoard.tsx` (lines 25-27)
 - **Flow**:
   1. On component mount, `useEffect` calls `loadCards()` from localStorage
@@ -89,6 +93,7 @@ interface Card {
   5. Columns render with draggable `Card` children or empty placeholder
 
 **Code Reference:**
+
 ```typescript
 useEffect(() => {
   const loadedCards = loadCards();
@@ -101,6 +106,7 @@ const completeCards = cards.filter((card) => card.columnId === 'complete');
 ```
 
 ### 2. **Adding a Card**
+
 - **File**: `src/components/AddCardModal.tsx`
 - **Flow**:
   1. User clicks "+ Add Card" button in header
@@ -115,12 +121,14 @@ const completeCards = cards.filter((card) => card.columnId === 'complete');
   6. `useEffect` in TaskBoard auto-saves cards to localStorage
 
 **Validation Rules:**
+
 - Title: Required, non-empty after trim, ≤ 100 characters
 - Body: Required, non-empty after trim, ≤ 500 characters
 - Submit button: Disabled until both fields are valid
 - Error messages displayed inline under fields
 
 ### 3. **Moving Cards (Drag-and-Drop)**
+
 - **File**: `src/components/TaskBoard.tsx` (lines 53-79)
 - **Approach**: Native HTML5 Drag and Drop API (no external library)
 - **Flow**:
@@ -137,6 +145,7 @@ const completeCards = cards.filter((card) => card.columnId === 'complete');
      - localStorage auto-saves via useEffect
 
 **Code Reference:**
+
 ```typescript
 const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
   e.preventDefault();
@@ -154,6 +163,7 @@ const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'comp
 ```
 
 ### 4. **Deleting Cards**
+
 - **File**: `src/components/Card.tsx`
 - **Flow**:
   1. User clicks delete button (×) on card
@@ -166,6 +176,7 @@ const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'comp
      - Success toast appears
 
 **Code Reference:**
+
 ```typescript
 const handleDeleteCard = (cardId: string) => {
   setCards((prev) => prev.filter((card) => card.id !== cardId));
@@ -174,6 +185,7 @@ const handleDeleteCard = (cardId: string) => {
 ```
 
 ### 5. **Toast Notifications**
+
 - **File**: `src/components/Toast.tsx`
 - **Features**:
   - Auto-dismiss after 3 seconds
@@ -181,22 +193,27 @@ const handleDeleteCard = (cardId: string) => {
   - Fixed position (top-right corner)
   - Multiple toasts can stack
 - **Usage**:
+
   ```typescript
   addToast('Card added', 'success');
   addToast('Error saving card', 'error');
   ```
 
 ### 6. **localStorage Persistence**
+
 - **File**: `src/storage.ts`
 - **Key**: `'taskboard_cards'`
 - **Format**: JSON string of Card array
 - **Auto-Save Logic**: TaskBoard has a `useEffect` that watches `cards` state:
+
   ```typescript
   useEffect(() => {
     saveCards(cards);
   }, [cards]);
   ```
+
 - **On App Load**: TaskBoard loads cards on mount:
+
   ```typescript
   useEffect(() => {
     const loadedCards = loadCards();
@@ -209,19 +226,25 @@ const handleDeleteCard = (cardId: string) => {
 ## Key Files Explained
 
 ### `src/types.ts`
+
 TypeScript type definitions used across the app:
+
 - `Card` - Full card object structure
 - `ColumnId` - Union type of valid column IDs
 - `Toast` - Toast notification structure
 
 ### `src/storage.ts`
+
 Utility functions for localStorage operations:
+
 - `loadCards()` - Retrieves and parses cards from localStorage, returns empty array if not found
 - `saveCards()` - Serializes and saves cards to localStorage with error handling
 - `generateId()` - Creates unique IDs using `Math.random()` + `Date.now()`
 
 ### `src/components/TaskBoard.tsx`
+
 **The main orchestrator component** - responsible for:
+
 - Managing all state (cards, modal visibility, toasts, dragged card)
 - Loading/saving to localStorage
 - Handling all card operations (add, delete, move)
@@ -229,6 +252,7 @@ Utility functions for localStorage operations:
 - Rendering the board layout and coordinating child components
 
 Key functions:
+
 - `handleAddCard()` - Creates new card, adds to state, closes modal
 - `handleDeleteCard()` - Removes card from state
 - `handleDragStart()` - Initiates drag operation
@@ -237,28 +261,36 @@ Key functions:
 - `dismissToast()` - Removes toast from state
 
 ### `src/components/Column.tsx`
+
 **Container for a single kanban column:**
+
 - Displays column title and card count
 - Provides drop zone for drag-and-drop
 - Renders empty state if no cards
 - Delegates card rendering to Card component
 
 ### `src/components/Card.tsx`
+
 **Individual card component with delete confirmation:**
+
 - Displays title, body, and creation date
 - Handles drag initiation
 - Shows delete confirmation modal (local state, independent of parent)
 - On confirm delete, calls `onDelete()` callback
 
 ### `src/components/AddCardModal.tsx`
+
 **Modal form for creating new cards:**
+
 - Real-time character count display
 - Form validation with error messages
 - Disabled submit button when fields invalid
 - Clears form on successful submission or cancel
 
 ### `src/components/Toast.tsx`
+
 **Toast notification system:**
+
 - `ToastNotification` - Individual toast component with auto-dismiss
 - `ToastContainer` - Manages multiple toasts, stacked in top-right
 - Uses `useEffect` to auto-dismiss after 3 seconds
@@ -307,12 +339,14 @@ Key functions:
 ## Testing Strategy
 
 The app is tested with **blackbox tests** (behavior-driven), not unit tests. This means:
+
 - Tests treat the app as a "black box" - testing user interactions and outcomes
 - Tests don't depend on implementation details (component names, functions, etc.)
 - Tests use React Testing Library to query by user-facing elements (labels, text, roles)
 - If implementation changes but behavior stays the same, tests still pass
 
 **Test Coverage:**
+
 - ✅ Board displays 3 columns on load
 - ✅ Adding a card with valid data
 - ✅ Form validation (title/body required, max chars)
@@ -337,6 +371,7 @@ The app is tested with **blackbox tests** (behavior-driven), not unit tests. Thi
 ### Adding a New Feature (e.g., Card Priority)
 
 1. **Update Card type** in `src/types.ts`:
+
    ```typescript
    interface Card {
      // ... existing fields
