@@ -1,3 +1,9 @@
+---
+name: spec-create
+description: Create comprehensive, well-structured feature specifications that break complex features into reviewable phases. Use this skill when creating specifications for features requiring user stories, technical requirements, acceptance criteria, and phased implementation tasks with markdown best practices compliance.
+license: Complete terms in LICENSE.txt
+---
+
 # spec-create
 
 Skill Name: **Create Complex Feature Specification**

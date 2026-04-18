@@ -1,3 +1,9 @@
+---
+name: markdown-create
+description: Create well-formatted markdown documents following markdownlint v0.40.0 standards. Use this skill when creating or editing markdown files to ensure consistent, high-quality formatting with proper heading hierarchy, spacing, lists, and code blocks.
+license: Complete terms in LICENSE.txt
+---
+
 # Markdown Document Creation Skill
 
 This skill provides comprehensive guidance for creating well-formatted markdown documents following markdownlint v0.40.0 standards. Use this skill whenever creating or editing markdown files to ensure consistent, high-quality formatting.
