@@ -2,37 +2,42 @@
 
 ## 1. Install Node.js
 
-Download and install Node.js from https://nodejs.org/en/download
+Download and install Node.js from <https://nodejs.org/en/download>
 
 ## 2. Install/update VS Code
 
-If you don't have VS Code yet, install it here: https://code.visualstudio.com/
+If you don't have VS Code yet, install it here: <https://code.visualstudio.com/>
 
-If you already have VS Code installed, make sure it's updated by going to the bottom-left gear > Check for Updates
+If you already have VS Code installed, make sure it's updated by going to the
+bottom-left gear > Check for Updates
 
 ## 3. Sign Up for GitHub Copilot
 
-Create an account at https://github.com/features/copilot/plans. Free option available
+Create an account at <https://github.com/features/copilot/plans>. Free option available
 
 ## 4. Install the GitHub Copilot CLI
 
-**Recommended (all platforms, requires Node.js)**
-```
+### Recommended (all platforms, requires Node.js)
+
+```sh
 npm install -g @github/copilot
 ```
 
-**macOS/Linux (Homebrew):**
-```
+### macOS/Linux (Homebrew)
+
+```sh
 brew install copilot-cli
 ```
 
-**Windows (WinGet):**
-```
+### Windows (WinGet)
+
+```sh
 winget install GitHub.Copilot
 ```
 
-**macOS/Linux (Install Script):**
-```
+### macOS/Linux (Install Script)
+
+```sh
 curl -fsSL https://gh.io/copilot-install | bash
 ```
 

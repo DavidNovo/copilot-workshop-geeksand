@@ -2,7 +2,9 @@
 
 ## User Story
 
-As a task board user, I want to drag and drop cards between columns and reorder them within the same column so that I can organize my tasks more efficiently with intuitive interactions.
+As a task board user, I want to drag and drop cards between columns and reorder
+them within the same column so that I can organize my tasks more efficiently
+with intuitive interactions.
 
 ---
 
@@ -46,14 +48,15 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Set up draggable attributes and initialize drag state management
 
-### Implementation Tasks
+### Implementation Tasks - Phase 1
 
 - [ ] Add `draggable="true"` attribute to Card component
 - [ ] Create `onDragStart` handler in Card component:
   - [ ] Sets data transfer effect to 'move'
   - [ ] Stores card ID in dataTransfer
   - [ ] Sets draggable visual effect (ghost image or CSS class)
-- [ ] Add `draggedCardId` state in TaskBoard (already exists - verify it's being used)
+- [ ] Add `draggedCardId` state in TaskBoard
+  (already exists - verify it's being used)
 - [ ] Add visual feedback CSS class for dragged cards (opacity/scale effect)
 - [ ] Test dragging initiates without console errors
 
@@ -69,7 +72,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Enable columns and cards to receive drops
 
-### Implementation Tasks
+### Implementation Tasks - Phase 2
 
 - [ ] Add `onDragOver` handler to Column component:
   - [ ] Calls `e.preventDefault()` to allow drop
@@ -92,7 +95,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Move cards between columns on drop
 
-### Implementation Tasks
+### Implementation Tasks - Phase 3
 
 - [ ] Add `onDrop` handler to Column component:
   - [ ] Reads card ID from dataTransfer
@@ -122,7 +125,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Allow users to reorder cards within the same column
 
-### Implementation Tasks
+### Implementation Tasks - Phase 4
 
 - [ ] Add `dragOverIndex` state in TaskBoard:
   - [ ] Track which position in the column the card hovers over
@@ -153,7 +156,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Enhance user experience with better visual feedback
 
-### Implementation Tasks
+### Implementation Tasks - Phase 5
 
 - [ ] Implement opacity/scale effects for dragged card:
   - [ ] Set opacity to 0.5 or scale to 0.9 while dragging
@@ -181,7 +184,7 @@ As a task board user, I want to drag and drop cards between columns and reorder 
 
 **Goal:** Ensure robustness and graceful degradation
 
-### Implementation Tasks
+### Implementation Tasks - Phase 6
 
 - [ ] Handle invalid drag data:
   - [ ] Check if dropped card ID exists
@@ -268,7 +271,7 @@ In TaskBoard component:
 ### Key Handler Locations
 
 | Component | Handlers |
-|-----------|----------|
+| --------- | -------- |
 | **Card.tsx** | `onDragStart`, `onDragEnd` |
 | **Column.tsx** | `onDragOver`, `onDragLeave`, `onDrop` |
 | **TaskBoard.tsx** | Move/reorder logic, state management |
