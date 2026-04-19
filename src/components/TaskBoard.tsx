@@ -14,8 +14,26 @@ export function TaskBoard() {
 
   // Save cards to localStorage whenever they change
   useEffect(() => {
-    saveCards(cards);
+    try {
+      saveCards(cards);
+    } catch (error) {
+      console.error('Failed to persist cards:', error);
+      addToast('Failed to save changes', 'error');
+    }
   }, [cards]);
+
+  // Reset drag state when tab becomes hidden mid-drag
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && draggedCardId) {
+        console.warn('[DragDrop] Tab hidden during drag — resetting state');
+        setDraggedCardId(null);
+        setDragOverIndex(null);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [draggedCardId]);
 
   const addToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = generateId();
@@ -46,10 +64,33 @@ export function TaskBoard() {
     addToast('Card deleted', 'success');
   };
 
+  const VALID_COLUMN_IDS = ['todo', 'in-progress', 'complete'] as const;
+
+  const isValidColumnId = (id: string): id is 'todo' | 'in-progress' | 'complete' =>
+    (VALID_COLUMN_IDS as readonly string[]).includes(id);
+
   const handleDragStart = (e: React.DragEvent, cardId: string) => {
+    if (isModalOpen) {
+      console.warn('[DragDrop] Drag prevented: modal is open');
+      e.preventDefault();
+      return;
+    }
+    if (draggedCardId) {
+      console.warn('[DragDrop] Drag prevented: another drag already in progress');
+      e.preventDefault();
+      return;
+    }
     setDraggedCardId(cardId);
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('cardId', cardId);
+  };
+
+  const handleDragEnd = () => {
+    if (draggedCardId) {
+      console.warn('[DragDrop] Drag cancelled without drop — resetting state');
+    }
+    setDraggedCardId(null);
+    setDragOverIndex(null);
   };
 
   const moveCardToColumn = (cardId: string, targetColumnId: 'todo' | 'in-progress' | 'complete') => {
@@ -110,21 +151,38 @@ export function TaskBoard() {
     addToast('Card reordered', 'success');
   };
 
-  const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
+  const handleDrop = (e: React.DragEvent, columnId: string) => {
     e.preventDefault();
 
-    if (!draggedCardId) {
+    if (!isValidColumnId(columnId)) {
+      console.warn(`[DragDrop] Invalid target column ID: ${columnId}`);
+      addToast('Error: Invalid drop target', 'error');
+      setDraggedCardId(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    const cardId = draggedCardId ?? e.dataTransfer.getData('cardId');
+    if (!cardId) {
+      console.warn('[DragDrop] Drop event with no card ID');
       addToast('Error: No card selected', 'error');
       setDragOverIndex(null);
       return;
     }
 
-    // Check if reordering within same column
-    const draggedCard = cards.find((c) => c.id === draggedCardId);
-    if (draggedCard && draggedCard.columnId === columnId && dragOverIndex !== null) {
-      reorderCardsInColumn(draggedCardId, dragOverIndex, columnId);
+    const card = cards.find((c) => c.id === cardId);
+    if (!card) {
+      console.warn(`[DragDrop] Card ID not found: ${cardId}`);
+      addToast('Error: Card not found', 'error');
+      setDraggedCardId(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    if (card.columnId === columnId && dragOverIndex !== null) {
+      reorderCardsInColumn(cardId, dragOverIndex, columnId);
     } else {
-      moveCardToColumn(draggedCardId, columnId);
+      moveCardToColumn(cardId, columnId);
     }
 
     setDraggedCardId(null);
@@ -162,6 +220,7 @@ export function TaskBoard() {
             dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
             onDrop={handleDrop}
             onCardDragOver={handleCardDragOver}
           />
@@ -173,6 +232,7 @@ export function TaskBoard() {
             dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
             onDrop={handleDrop}
             onCardDragOver={handleCardDragOver}
           />
@@ -184,6 +244,7 @@ export function TaskBoard() {
             dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
             onDrop={handleDrop}
             onCardDragOver={handleCardDragOver}
           />

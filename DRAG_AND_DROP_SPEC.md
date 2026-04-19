@@ -158,25 +158,25 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 5
 
-- [ ] Implement opacity/scale effects for dragged card:
-  - [ ] Set opacity to 0.5 or scale to 0.9 while dragging
-  - [ ] Restore opacity/scale on drop or cancel
-- [ ] Enhance drop zone highlighting:
-  - [ ] Add border or background color change to target column
-  - [ ] Smooth transition for visual effects
-- [ ] Add cursor feedback:
-  - [ ] Draggable cards show `cursor: grab` on hover
-  - [ ] During drag show `cursor: grabbing`
-- [ ] Optional: Add drop zone position indicator (ghost placeholder)
-- [ ] Test visual effects across different browsers
+- [x] Implement opacity/scale effects for dragged card:
+  - [x] Set opacity to 0.5 or scale to 0.9 while dragging
+  - [x] Restore opacity/scale on drop or cancel
+- [x] Enhance drop zone highlighting:
+  - [x] Add border or background color change to target column
+  - [x] Smooth transition for visual effects
+- [x] Add cursor feedback:
+  - [x] Draggable cards show `cursor: grab` on hover
+  - [x] During drag show `cursor: grabbing`
+- [x] Optional: Add drop zone position indicator (ghost placeholder)
+- [x] Test visual effects across different browsers
 
 ### Acceptance for Phase 5
 
-- [ ] Dragged cards have clear visual distinction (opacity/scale)
-- [ ] Drop zones are clearly highlighted on drag-over
-- [ ] Cursor changes provide clear affordance
-- [ ] All transitions are smooth (no jarring changes)
-- [ ] Visual effects work consistently
+- [x] Dragged cards have clear visual distinction (opacity/scale)
+- [x] Drop zones are clearly highlighted on drag-over
+- [x] Cursor changes provide clear affordance
+- [x] All transitions are smooth (no jarring changes)
+- [x] Visual effects work consistently
 
 ---
 
@@ -186,29 +186,29 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 6
 
-- [ ] Handle invalid drag data:
-  - [ ] Check if dropped card ID exists
-  - [ ] Validate target column ID
-  - [ ] Show error toast if invalid
-- [ ] Handle concurrent operations:
-  - [ ] Prevent multiple drag operations simultaneously
-  - [ ] Reset state on any errors
-- [ ] Handle localStorage failures:
-  - [ ] Catch save errors and show error toast
-  - [ ] Log errors to console for debugging
-- [ ] Handle edge cases:
-  - [ ] Dragging while another card is being added
-  - [ ] Rapid successive drags
-  - [ ] Tab switch during drag
-- [ ] Add console warnings for development
+- [x] Handle invalid drag data:
+  - [x] Check if dropped card ID exists
+  - [x] Validate target column ID
+  - [x] Show error toast if invalid
+- [x] Handle concurrent operations:
+  - [x] Prevent multiple drag operations simultaneously
+  - [x] Reset state on any errors
+- [x] Handle localStorage failures:
+  - [x] Catch save errors and show error toast
+  - [x] Log errors to console for debugging
+- [x] Handle edge cases:
+  - [x] Dragging while another card is being added
+  - [x] Rapid successive drags
+  - [x] Tab switch during drag
+- [x] Add console warnings for development
 
 ### Acceptance for Phase 6
 
-- [ ] All invalid drops handled gracefully
-- [ ] Error toasts appear for failures
-- [ ] State is never corrupted
-- [ ] No unhandled promise rejections
-- [ ] localStorage failures are caught
+- [x] All invalid drops handled gracefully
+- [x] Error toasts appear for failures
+- [x] State is never corrupted
+- [x] No unhandled promise rejections
+- [x] localStorage failures are caught
 
 ---
 

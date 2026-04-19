@@ -10,11 +10,12 @@ interface ColumnProps {
   dragOverIndex: number | null;
   onDelete: (cardId: string) => void;
   onDragStart: (e: React.DragEvent, cardId: string) => void;
+  onDragEnd: () => void;
   onDrop: (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => void;
   onCardDragOver: (cardId: string, cardIndex: number, columnId: 'todo' | 'in-progress' | 'complete') => void;
 }
 
-export function Column({ title, columnId, cards, draggedCardId, dragOverIndex, onDelete, onDragStart, onDrop, onCardDragOver }: ColumnProps) {
+export function Column({ title, columnId, cards, draggedCardId, dragOverIndex, onDelete, onDragStart, onDragEnd, onDrop, onCardDragOver }: ColumnProps) {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -61,6 +62,7 @@ export function Column({ title, columnId, cards, draggedCardId, dragOverIndex, o
                 isDragging={draggedCardId === card.id}
                 onDelete={onDelete}
                 onDragStart={(e) => onDragStart(e, card.id)}
+                onDragEnd={onDragEnd}
                 onDragOver={(e) => {
                   e.preventDefault();
                   onCardDragOver(card.id, cardIndex, columnId);

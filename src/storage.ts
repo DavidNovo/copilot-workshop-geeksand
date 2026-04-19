@@ -3,8 +3,13 @@ import type { Card } from './types';
 const STORAGE_KEY = 'taskboard_cards';
 
 export function loadCards(): Card[] {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored ? JSON.parse(stored) : [];
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Error loading cards from localStorage:', error);
+    return [];
+  }
 }
 
 export function saveCards(cards: Card[]): void {
