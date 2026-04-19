@@ -218,14 +218,14 @@ with intuitive interactions.
 
 ### Implementation Tasks
 
-- [ ] Write unit tests for:
-  - [ ] `moveCardToColumn` handler
-  - [ ] `reorderCardsInColumn` handler
-  - [ ] Drag event handlers
-- [ ] Write integration tests for:
-  - [ ] Full drag-and-drop flow between columns
-  - [ ] Full reorder flow within a column
-  - [ ] Persistence to localStorage
+- [x] Write unit tests for:
+  - [x] `moveCardToColumn` handler
+  - [x] `reorderCardsInColumn` handler
+  - [x] Drag event handlers
+- [x] Write integration tests for:
+  - [x] Full drag-and-drop flow between columns
+  - [x] Full reorder flow within a column
+  - [x] Persistence to localStorage
 - [ ] Manual testing checklist:
   - [ ] Drag cards between all column combinations
   - [ ] Reorder cards in each column
@@ -236,8 +236,8 @@ with intuitive interactions.
 
 ### Acceptance for Phase 7
 
-- [ ] Unit test coverage > 80% for drag logic
-- [ ] Integration tests pass
+- [x] Unit test coverage > 80% for drag logic
+- [x] Integration tests pass
 - [ ] Manual testing checklist completed
 - [ ] No performance issues with 50+ cards
 - [ ] Cross-browser testing completed
