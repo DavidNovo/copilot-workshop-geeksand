@@ -6,9 +6,10 @@ interface CardComponentProps {
   isDragging: boolean;
   onDelete: (cardId: string) => void;
   onDragStart: (e: React.DragEvent) => void;
+  onDragOver: (e: React.DragEvent) => void;
 }
 
-export function CardComponent({ card, isDragging, onDelete, onDragStart }: CardComponentProps) {
+export function CardComponent({ card, isDragging, onDelete, onDragStart, onDragOver }: CardComponentProps) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleDeleteClick = () => {
@@ -25,6 +26,7 @@ export function CardComponent({ card, isDragging, onDelete, onDragStart }: CardC
       <div
         draggable
         onDragStart={onDragStart}
+        onDragOver={onDragOver}
         className={`bg-white p-4 rounded-lg shadow-md hover:shadow-lg cursor-grab active:cursor-grabbing transition-all border-l-4 border-blue-500 ${
           isDragging ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
         }`}

@@ -7,12 +7,14 @@ interface ColumnProps {
   columnId: 'todo' | 'in-progress' | 'complete';
   cards: Card[];
   draggedCardId: string | null;
+  dragOverIndex: number | null;
   onDelete: (cardId: string) => void;
   onDragStart: (e: React.DragEvent, cardId: string) => void;
   onDrop: (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => void;
+  onCardDragOver: (cardId: string, cardIndex: number, columnId: 'todo' | 'in-progress' | 'complete') => void;
 }
 
-export function Column({ title, columnId, cards, draggedCardId, onDelete, onDragStart, onDrop }: ColumnProps) {
+export function Column({ title, columnId, cards, draggedCardId, dragOverIndex, onDelete, onDragStart, onDrop, onCardDragOver }: ColumnProps) {
   const [isDragOver, setIsDragOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -49,14 +51,22 @@ export function Column({ title, columnId, cards, draggedCardId, onDelete, onDrag
             <p className="text-xs mt-1">Drag cards here or create a new one</p>
           </div>
         ) : (
-          cards.map((card) => (
-            <CardComponent
-              key={card.id}
-              card={card}
-              isDragging={draggedCardId === card.id}
-              onDelete={onDelete}
-              onDragStart={(e) => onDragStart(e, card.id)}
-            />
+          cards.map((card, cardIndex) => (
+            <div key={card.id}>
+              {dragOverIndex === cardIndex && (
+                <div className="h-1 bg-blue-400 rounded mb-2"></div>
+              )}
+              <CardComponent
+                card={card}
+                isDragging={draggedCardId === card.id}
+                onDelete={onDelete}
+                onDragStart={(e) => onDragStart(e, card.id)}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  onCardDragOver(card.id, cardIndex, columnId);
+                }}
+              />
+            </div>
           ))
         )}
       </div>

@@ -10,6 +10,7 @@ export function TaskBoard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [draggedCardId, setDraggedCardId] = useState<string | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   // Save cards to localStorage whenever they change
   useEffect(() => {
@@ -77,16 +78,57 @@ export function TaskBoard() {
     addToast('Card moved', 'success');
   };
 
+  const handleCardDragOver = (cardId: string, cardIndex: number, columnId: 'todo' | 'in-progress' | 'complete') => {
+    // Only track reordering within same column
+    const draggedCard = cards.find((c) => c.id === draggedCardId);
+    if (draggedCard && draggedCard.columnId === columnId && draggedCard.id !== cardId) {
+      setDragOverIndex(cardIndex);
+    }
+  };
+
+  const reorderCardsInColumn = (cardId: string, targetIndex: number, columnId: 'todo' | 'in-progress' | 'complete') => {
+    // Get all cards in this column
+    const columnCards = cards.filter((c) => c.columnId === columnId);
+    const sourceIndex = columnCards.findIndex((c) => c.id === cardId);
+
+    // No reordering if dropping on same position
+    if (sourceIndex === targetIndex || sourceIndex === targetIndex - 1) {
+      addToast('Card reordered', 'info');
+      return;
+    }
+
+    // Create new array with reordered cards
+    const newColumnCards = [...columnCards];
+    const [movedCard] = newColumnCards.splice(sourceIndex, 1);
+    newColumnCards.splice(targetIndex > sourceIndex ? targetIndex - 1 : targetIndex, 0, movedCard);
+
+    // Update cards array while preserving order of other columns
+    const otherCards = cards.filter((c) => c.columnId !== columnId);
+    const reorderedCards = [...otherCards, ...newColumnCards];
+
+    setCards(reorderedCards);
+    addToast('Card reordered', 'success');
+  };
+
   const handleDrop = (e: React.DragEvent, columnId: 'todo' | 'in-progress' | 'complete') => {
     e.preventDefault();
 
     if (!draggedCardId) {
       addToast('Error: No card selected', 'error');
+      setDragOverIndex(null);
       return;
     }
 
-    moveCardToColumn(draggedCardId, columnId);
+    // Check if reordering within same column
+    const draggedCard = cards.find((c) => c.id === draggedCardId);
+    if (draggedCard && draggedCard.columnId === columnId && dragOverIndex !== null) {
+      reorderCardsInColumn(draggedCardId, dragOverIndex, columnId);
+    } else {
+      moveCardToColumn(draggedCardId, columnId);
+    }
+
     setDraggedCardId(null);
+    setDragOverIndex(null);
   };
 
   const todoCards = cards.filter((card) => card.columnId === 'todo');
@@ -117,27 +159,33 @@ export function TaskBoard() {
             columnId="todo"
             cards={todoCards}
             draggedCardId={draggedCardId}
+            dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
             onDrop={handleDrop}
+            onCardDragOver={handleCardDragOver}
           />
           <Column
             title="In Progress"
             columnId="in-progress"
             cards={inProgressCards}
             draggedCardId={draggedCardId}
+            dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
             onDrop={handleDrop}
+            onCardDragOver={handleCardDragOver}
           />
           <Column
             title="Complete"
             columnId="complete"
             cards={completeCards}
             draggedCardId={draggedCardId}
+            dragOverIndex={dragOverIndex}
             onDelete={handleDeleteCard}
             onDragStart={handleDragStart}
             onDrop={handleDrop}
+            onCardDragOver={handleCardDragOver}
           />
         </div>
       </div>

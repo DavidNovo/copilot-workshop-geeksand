@@ -50,21 +50,21 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 1
 
-- [ ] Add `draggable="true"` attribute to Card component
-- [ ] Create `onDragStart` handler in Card component:
-  - [ ] Sets data transfer effect to 'move'
-  - [ ] Stores card ID in dataTransfer
-  - [ ] Sets draggable visual effect (ghost image or CSS class)
-- [ ] Add `draggedCardId` state in TaskBoard
+- [x] Add `draggable="true"` attribute to Card component
+- [x] Create `onDragStart` handler in Card component:
+  - [x] Sets data transfer effect to 'move'
+  - [x] Stores card ID in dataTransfer
+  - [x] Sets draggable visual effect (ghost image or CSS class)
+- [x] Add `draggedCardId` state in TaskBoard
   (already exists - verify it's being used)
-- [ ] Add visual feedback CSS class for dragged cards (opacity/scale effect)
-- [ ] Test dragging initiates without console errors
+- [x] Add visual feedback CSS class for dragged cards (opacity/scale effect)
+- [x] Test dragging initiates without console errors
 
 ### Acceptance for Phase 1
 
-- [ ] Cards show visual feedback when dragging starts
-- [ ] No console errors on drag start
-- [ ] Drag data is properly stored in dataTransfer
+- [x] Cards show visual feedback when dragging starts
+- [x] No console errors on drag start
+- [x] Drag data is properly stored in dataTransfer
 
 ---
 
@@ -74,20 +74,20 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 2
 
-- [ ] Add `onDragOver` handler to Column component:
-  - [ ] Calls `e.preventDefault()` to allow drop
-  - [ ] Sets `e.dataTransfer.dropEffect = 'move'`
-  - [ ] Adds visual indicator (background color change) on drag over
-- [ ] Add `onDragLeave` handler to Column component:
-  - [ ] Removes visual indicator when drag leaves
-- [ ] Add drop zone styling (highlight effect)
-- [ ] Test hover state changes on columns during drag
+- [x] Add `onDragOver` handler to Column component:
+  - [x] Calls `e.preventDefault()` to allow drop
+  - [x] Sets `e.dataTransfer.dropEffect = 'move'`
+  - [x] Adds visual indicator (background color change) on drag over
+- [x] Add `onDragLeave` handler to Column component:
+  - [x] Removes visual indicator when drag leaves
+- [x] Add drop zone styling (highlight effect)
+- [x] Test hover state changes on columns during drag
 
 ### Acceptance for Phase 2
 
-- [ ] Columns show visual feedback when dragged card is over them
-- [ ] Visual feedback is removed when card leaves the column
-- [ ] No console errors during drag over
+- [x] Columns show visual feedback when dragged card is over them
+- [x] Visual feedback is removed when card leaves the column
+- [x] No console errors during drag over
 
 ---
 
@@ -97,27 +97,27 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 3
 
-- [ ] Add `onDrop` handler to Column component:
-  - [ ] Reads card ID from dataTransfer
-  - [ ] Gets the source and target column IDs
-  - [ ] Calls `moveCardToColumn(cardId, targetColumnId)`
-- [ ] Create `moveCardToColumn` handler in TaskBoard:
-  - [ ] Finds the card by ID
-  - [ ] Updates card's `columnId` to the target column
-  - [ ] Updates state with new card array
-  - [ ] Shows success toast message
-- [ ] Handle edge cases:
-  - [ ] Card dropped on same column (no-op)
-  - [ ] Invalid card ID (error toast)
-- [ ] Test card moves between columns and persists
+- [x] Add `onDrop` handler to Column component:
+  - [x] Reads card ID from dataTransfer
+  - [x] Gets the source and target column IDs
+  - [x] Calls `moveCardToColumn(cardId, targetColumnId)`
+- [x] Create `moveCardToColumn` handler in TaskBoard:
+  - [x] Finds the card by ID
+  - [x] Updates card's `columnId` to the target column
+  - [x] Updates state with new card array
+  - [x] Shows success toast message
+- [x] Handle edge cases:
+  - [x] Card dropped on same column (no-op)
+  - [x] Invalid card ID (error toast)
+- [x] Test card moves between columns and persists
 
 ### Acceptance for Phase 3
 
-- [ ] Cards move to different columns on drop
-- [ ] Cards don't move if dropped on same column
-- [ ] Success toast appears after move
-- [ ] Changes persist to localStorage
-- [ ] No console errors
+- [x] Cards move to different columns on drop
+- [x] Cards don't move if dropped on same column
+- [x] Success toast appears after move
+- [x] Changes persist to localStorage
+- [x] No console errors
 
 ---
 
@@ -127,28 +127,28 @@ with intuitive interactions.
 
 ### Implementation Tasks - Phase 4
 
-- [ ] Add `dragOverIndex` state in TaskBoard:
-  - [ ] Track which position in the column the card hovers over
-  - [ ] Reset to null on drag leave or drop
-- [ ] Add `onDragOver` handler to Card component:
-  - [ ] Gets card's column and index
-  - [ ] Passes this info to parent via callback
-  - [ ] Parent updates `dragOverIndex` state
-- [ ] Create `reorderCardsInColumn(cardId, targetIndex)` handler:
-  - [ ] Finds source and target indices of the card in column
-  - [ ] Reorders the card array for that column
-  - [ ] Updates state with new card array
-  - [ ] Shows neutral toast message
-- [ ] Add optional visual indicator showing insertion point
-- [ ] Test reordering cards within a column
+- [x] Add `dragOverIndex` state in TaskBoard:
+  - [x] Track which position in the column the card hovers over
+  - [x] Reset to null on drag leave or drop
+- [x] Add `onDragOver` handler to Card component:
+  - [x] Gets card's column and index
+  - [x] Passes this info to parent via callback
+  - [x] Parent updates `dragOverIndex` state
+- [x] Create `reorderCardsInColumn(cardId, targetIndex)` handler:
+  - [x] Finds source and target indices of the card in column
+  - [x] Reorders the card array for that column
+  - [x] Updates state with new card array
+  - [x] Shows neutral toast message
+- [x] Add optional visual indicator showing insertion point
+- [x] Test reordering cards within a column
 
 ### Acceptance for Phase 4
 
-- [ ] Cards can be reordered within the same column
-- [ ] Reordered position persists to localStorage
-- [ ] Toast appears confirming reorder
-- [ ] No console errors
-- [ ] Drag-over indicator shows insertion point (optional enhancement)
+- [x] Cards can be reordered within the same column
+- [x] Reordered position persists to localStorage
+- [x] Toast appears confirming reorder
+- [x] No console errors
+- [x] Drag-over indicator shows insertion point (optional enhancement)
 
 ---
 
